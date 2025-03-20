@@ -43,6 +43,42 @@ The project uses IMDB dataset
 - We ignore the unsup/ folder since it’s unlabeled
 - We merge the data into a single CSV by run [imdb_preprocessing.py](https://github.com/alphaceph91/SentimentAnalysis/blob/main/dataloader/imdb_preprocessing.py), which collects reviews from train and test directories into **imdb_reviews_processed.csv**
 
+## Model Architecture
+The project uses a BERT model, defined in [BERT_model.py](https://github.com/alphaceph91/SentimentAnalysis/blob/main/models/BERT_model.py) for sentiment classification
+- ```BERTSentimentModel``` extends ```BertPreTrainedModel```
+- Pooled Output from BERT (```outputs.pooler_output```) passes through a dropout layer and then a Linear layer (```sentiment_classifier```) with output dimension = 2
+- Forward Method returns only sentiment logits
+
+## Training and Evaluation
+**Training Script** [train.py](https://github.com/alphaceph91/SentimentAnalysis/blob/main/train.py) handles data loading,model creation, training loops, and evaluation
+- ```get_model``` loads the BERT-based sentiment-only model (```load_model_bert(num_sentiment_labels=2)```) and optionally freezes all BERT layers initially
+- ```train_epoch``` performs one epoch of training. Minimizes cross-entropy loss on the sentiment logits
+- ```validate_epoch``` evaluates on the validation split, computing loss, F1, and ROC-AUC
+- ```plot_roc_curve / plot_losses``` saves training curves and the ROC curve
+- train.py tracks the best validation loss and saves the best model checkpoint in **checkpoints/**
+- During training ee freeze the pretrained layers at first, then gradually unfreeze them in subsequent epochs (aggressive gradual unfreezing). This helped for improving the model's performance significantly
+
+**Data Splits**
+We split 80% for training and 20% for validation using random_split. During training:
+- ```train_epoch``` updates weights on the training set
+- ```validate_epoch``` checks performance on the validation set
+
+**Performance Metrics**
+- Loss: Standard cross-entropy.
+- F1 Score (weighted): Evaluates classification performance.
+- ROC-AUC: Measures separability between positive and negative.
+- The train.py script logs these metrics for each epoch
+- Thr train.py script saves train/val loss plot, roc_auc_curve during each epoch and saves a performance_metrics.csv
+- performance_metrics.csv consists of: epoch, train_loss, train_f1, val_loss, val_f1, val_roc_auc
+
+**Best Score**
+- Epoch 5
+- val_f1: 0.718965871977108
+- val_roc_auc: 0.79667576
+
+
+
+
 ## Future Enhancements
 - Integrating another dataset for example a Game Review dataset
 - Implementing advanced data augmentation for back-translation or paraphrasing to expand the dataset and improve generalization
