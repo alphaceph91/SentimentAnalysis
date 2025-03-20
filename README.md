@@ -11,13 +11,13 @@ The core idea of this project was to try to develop a **binary sentiment analysi
 ```
 .
 ├── checkpoints
-│   └── ...                  	#Model checkpoints, plots, metrics (gets created automatically)
+│   └── ...                  	  #Model checkpoints, plots, metrics (gets created automatically)
 ├── config
-│   └── ...                  	#YAML config files for runs is generated automatically once train.py is executed
+│   └── ...                  	  #YAML config files for runs is generated automatically once train.py is executed
 ├── data
-│   ├── processed	     	#create this folder
-│   └── raw		     	#create this folder, download the dataset with the provided link and extract, paste the aclImdb folder here
-│       └── aclImdb		#after pasting the folder should look like this	
+│   ├── processed	     	        #create this folder
+│   └── raw		     	            #create this folder, download the dataset with the provided link and extract, paste the aclImdb folder here
+│       └── aclImdb		          #after pasting the folder should look like this	
 │           ├── train/pos/...   #IMDB training positive reviews
 │           ├── train/neg/...   #IMDB training negative reviews
 │           ├── test/pos/...    #IMDB test positive reviews
@@ -28,12 +28,20 @@ The core idea of this project was to try to develop a **binary sentiment analysi
 ├── models
 │   └── BERT_model.py           #BERT model with a single sentiment classification head
 ├── test_scripts
-│   └── test_BERT_model.py 	#script for testing BERT_model using dummy data and imdb_reviews_processed.csv dataset
+│   └── test_BERT_model.py 	    #script for testing BERT_model using dummy data and imdb_reviews_processed.csv dataset
 │   └── test_imdb_dataloader.py #script to verify IMDB dataloader is working correctly or not
-├── environment.yml		#tested for linux 
-├── train.py 			#primary training script with performance metrics, plots etc
-├── predict.py
+├── environment.yml		          #tested for linux 
+├── train.py 			              #primary training script with performance metrics, plots etc
+├── predict.py                  #this script is used for loading trained model checkpoint and inference 
 ```
+
+## Dataset
+The project uses IMDB dataset
+- 50,000 reviews split into train (25,000) and test (25,000)
+- Each review is labeled as positive (label = 1) or negative (label = 0)
+- In aclImdb/, pos/ holds positive reviews, while neg/ holds negative reviews
+- We ignore the unsup/ folder since it’s unlabeled
+- We merge the data into a single CSV by run [imdb_preprocessing.py](https://github.com/alphaceph91/SentimentAnalysis/blob/main/dataloader/imdb_preprocessing.py), which collects reviews from train and test directories into **imdb_reviews_processed.csv**
 
 ## Future Enhancements
 - Integrating another dataset for example a Game Review dataset
