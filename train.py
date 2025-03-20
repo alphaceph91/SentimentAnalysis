@@ -332,6 +332,3 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     main_wrapper(args)
-    
-# python train.py --model_type bert --batch_size 32 --epochs 5 --learning_rate 2e-5 --run_index 0
-# python train.py --optuna --n_trials 20 --run_index 0
