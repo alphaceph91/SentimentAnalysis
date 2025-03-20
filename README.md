@@ -37,3 +37,9 @@ The core idea of this project was to try to develop a **binary sentiment analysi
 
 ## Pretrained Model
 A pretrained model checkpoint trained for 5 epochs with batch_size=32 could be downloaded [here](https://drive.google.com/file/d/1ehGbUmuoNl4tUSYOeQ1QlqsRP9sAl1z-/view?usp=drive_link)
+
+## References
+- [IMDB Dataset](http://ai.stanford.edu/~amaas/data/sentiment/)
+- [BERT](https://arxiv.org/abs/1810.04805)
+- [Hugging Face Transformers](https://github.com/huggingface/transformers)
+- [Optuna](https://optuna.org/)
