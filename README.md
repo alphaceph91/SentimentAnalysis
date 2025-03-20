@@ -1,6 +1,12 @@
 # IMDB Sentiment Analysis with BERT
 The core idea of this project was to try to develop a **binary sentiment analysis** model (positive vs negative) using the **IMDB Movie Reviews** [dataset] (https://ai.stanford.edu/~amaas/data/sentiment/). The project uses **BERT-based** model architecture to classify whether a given movie review is **Good** (a positive sentiment) or **Bad** (a negative sentiment). 
 
+## Loss Plot
+![Image](https://github.com/alphaceph91/SentimentAnalysis/blob/main/loss_plot.png)
+
+## ROC AUC CURVE (BEST)
+![Image](https://github.com/alphaceph91/SentimentAnalysis/blob/main/roc_curve_epoch_5.png)
+
 ## Project Structure
 ```
 .
