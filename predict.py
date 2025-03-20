@@ -76,7 +76,3 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     main(args)
-
-#Examples
-# python predict.py --model_type bert --checkpoint checkpoints/best_model_epoch_5.pth --review_text "The movie had good story and good characters. I would like to watch it again"
-# python predict.py --model_type bert --checkpoint checkpoints/best_model_epoch_5.pth --review_text "The movie had bad story and bad characters. I will not like to watch this movie again"
