@@ -58,6 +58,11 @@ The project uses a BERT model, defined in [BERT_model.py](https://github.com/alp
 - train.py tracks the best validation loss and saves the best model checkpoint in **checkpoints/**
 - During training ee freeze the pretrained layers at first, then gradually unfreeze them in subsequent epochs (aggressive gradual unfreezing). This helped for improving the model's performance significantly
 
+For training the model:
+```sh
+python train.py --model_type bert --batch_size 32 --epochs 5 --lr_pretrained 1e-5 --lr_classifier 2e-5
+```
+
 **Data Splits**
 We split 80% for training and 20% for validation using random_split. During training:
 - ```train_epoch``` updates weights on the training set
@@ -76,8 +81,21 @@ We split 80% for training and 20% for validation using random_split. During trai
 - val_f1: 0.718965871977108
 - val_roc_auc: 0.79667576
 
+## Hyperparameter Optimization (Optuna)
+- train.py supports hyperparameter search using Optuna module
+- Hyperparameter search was not performed due to hardware limitation
+- For advanced experiments, you can enable Optuna with the ```--optuna``` flag
+- Optuna systematically searches for the combination of hyperparameters yielding the lowest validation loss
+```sh
+python train_optuna.py --optuna --n_trials 20
+```
 
-
+## Inference
+The script [predict.py](https://github.com/alphaceph91/SentimentAnalysis/blob/main/predict.py):
+- Load a trained BERT checkpoint (```.pth```) from **checkpoints/**
+- Tokenize an input review text with BertTokenizer
+- Forward pass to get sentiment logits
+- Print the classification result: “Good” vs. “Bad” and its probabilities
 
 ## Future Enhancements
 - Integrating another dataset for example a Game Review dataset
